@@ -767,12 +767,12 @@ function handleClick(el){
     const state = tries===0 ? "first" : "part";
     record[id]={state,tries:tries+1};
     reveal(id,state);
-    hit.classList.remove("flash-good"); void hit.offsetWidth; hit.classList.add("flash-good");
+    hit.classList.remove("flash-good"); void hit.getBoundingClientRect();   // SVG nodes have no offsetWidth; this forces the reflow hit.classList.add("flash-good");
     speak(tries===0 ? "Correct — first try." : "Correct, after "+tries+(tries===1?" miss.":" misses."), tries===0?"good":"");
     idx++; refreshStats(); setTimeout(ask,60);
   } else {
     tries++; misses++;
-    hit.classList.remove("flash-bad"); void hit.offsetWidth; hit.classList.add("flash-bad");
+    hit.classList.remove("flash-bad"); void hit.getBoundingClientRect();   // SVG nodes have no offsetWidth; this forces the reflow hit.classList.add("flash-bad");
     targetEl.classList.remove("miss"); void targetEl.offsetWidth; targetEl.classList.add("miss");
     setTimeout(()=>targetEl.classList.remove("miss"),400);
     if(tries>=3){
